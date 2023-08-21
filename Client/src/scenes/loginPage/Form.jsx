@@ -64,7 +64,7 @@ const Form = () => {
     }
     formData.append("picturePath", values.picture.name);
     const savedUserResponse = await fetch(
-      "http://localhost:6001/auth/register",
+      "https://faciogram-api-service.onrender.com/auth/register",
       {
         method: "POST",
         body: formData,
