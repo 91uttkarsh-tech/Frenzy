@@ -14,10 +14,6 @@ import postRoutes from "./routes/posts.js";
 import { register ,deleteAccount ,Search } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
-// import user from 'module'
-// import User from "./models/User.js";
-// import Post from "./models/Post.js";
-// import { users, posts } from "./data/index.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -56,16 +52,13 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 6001;
+const PORT = 6001;
 mongoose
-  .connect( "mongodb+srv://utkarsh:Utkarsh%40123@cluster0.3p9w8b1.mongodb.net/socialmedia"    /*process.env.MONGO_URL*/, {
+  .connect( "mongodb+srv://utkarsh:Utkarsh%40123@cluster0.3p9w8b1.mongodb.net/socialmedia" , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-    /* ADD DATA ONE TIME */
-    // User.insertMany(users);
-    // Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
