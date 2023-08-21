@@ -57,7 +57,7 @@ const PostWidget = ({
   });
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:6001/posts/${postId}/like`, {
+    const response = await fetch(`https://faciogram-api-service.onrender.com/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ const PostWidget = ({
   const patchComment = async () => {
     if (x.length > 0) {
       const response = await fetch(
-        `http://localhost:6001/posts/${postId}/comment`,
+        `https://faciogram-api-service.onrender.com/posts/${postId}/comment`,
         {
           method: "POST",
           headers: {
@@ -95,7 +95,7 @@ const PostWidget = ({
   const removeComents = async () => {
     console.log(myRef.current);
     const response = await fetch(
-      `http://localhost:6001/posts/${postId}/comment`,
+      `https://faciogram-api-service.onrender.com/posts/${postId}/comment`,
       {
         method: "POST",
         headers: {
@@ -126,7 +126,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:6001/assets/${picturePath}`}
+          src={`https://faciogram-api-service.onrender.com/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">
