@@ -35,7 +35,7 @@ export default function TemporaryDrawer(props) {
   };
 
   const remove = async () => {
-    const response = await fetch(`http://localhost:6001/delete`, {
+    const response = await fetch(`https://faciogram-api-service.onrender.com/delete`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${props.token}`,
