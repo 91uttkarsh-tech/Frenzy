@@ -35,15 +35,21 @@ export default function TemporaryDrawer(props) {
   };
 
   const remove = async () => {
-    const response = await fetch(`http://localhost:6001/delete`, {
+     fetch(`${process.env.REACT_APP_API_BASE_URL}/delete`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${props.token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name: props.name }),
+    }).then((res) => {
+      if (res.ok) {
+        Dispatch(setLogout());
+        alert("Account Deleted Successfully");
+      } else {
+        alert("Error deleting account");
+      }
     });
-    
   };
 
   const toggle = (e) => {

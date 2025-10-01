@@ -12,15 +12,19 @@ const FriendListWidget = ({ userId }) => {
   const friends = useSelector((state) => state.user.friends);
 
   const getFriends = async () => {
-    const response = await fetch(
-      `http://localhost:6001/users/${userId}/friends`,
+    fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/users/${userId}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+    ).then((res) => res.json())
+      .then((data) => {
+        dispatch(setFriends({ friends: data }));
+      })
+      .catch((error) => {
+        console.error("Error fetching friends:", error);
+      });
   };
 
   useEffect(() => {
