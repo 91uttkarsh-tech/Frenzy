@@ -7,6 +7,7 @@ const initialState = {
   posts: [],
   eye:false,
   privacy:false,
+  friends:[]
 };
 
 export const authSlice = createSlice({

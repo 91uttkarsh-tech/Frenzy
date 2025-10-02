@@ -7,7 +7,7 @@ const ActionAlert = ({ message, type = "info", actionLabel, onActionClick, durat
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setOpen(false), duration);
+    const timer = setTimeout(() => { setOpen(false); setAlert({ message: "", type: "" }); }, duration);
     return () => clearTimeout(timer);
   }, [duration]);
 

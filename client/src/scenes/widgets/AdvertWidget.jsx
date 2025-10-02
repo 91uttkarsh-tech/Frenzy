@@ -30,7 +30,7 @@ const AdvertWidget = () => {
         width="100%"
         height="auto"
         alt="advert"
-        src="${process.env.REACT_APP_API_BASE_URL}/assets/info4.jpeg"
+        src="https://mika-cosmetics.myshopify.com/cdn/shop/products/product35_c08dfde1-3289-49a6-97a7-6973ff4d1229_grande.jpg?v=1524657921"
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
       <FlexBetween>

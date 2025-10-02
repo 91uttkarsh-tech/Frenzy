@@ -18,7 +18,7 @@ import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import Share from "components/share";
-import { useState, useEffect ,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 
@@ -50,7 +50,7 @@ const PostWidget = ({
 
   useEffect(() => {
     var result = 0;
-    for(let i = 0 ; i < (comments.length); i++){
+    for (let i = 0; i < (comments.length); i++) {
       result += ((comments[i].comments).length);
     }
     setNumberOfComments(result);
@@ -93,7 +93,6 @@ const PostWidget = ({
   };
 
   const removeComents = async () => {
-    console.log(myRef.current);
     const response = await fetch(
       `${process.env.REACT_APP_API_BASE_URL}/posts/${postId}/comment`,
       {
@@ -117,9 +116,11 @@ const PostWidget = ({
         subtitle={location}
         userPicturePath={userPicturePath}
       />
+
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
+
       {picturePath && (
         <img
           width="100%"
@@ -129,7 +130,9 @@ const PostWidget = ({
           src={`${process.env.REACT_APP_API_BASE_URL}/assets/${picturePath}`}
         />
       )}
+
       <FlexBetween mt="0.25rem">
+        
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
             <IconButton onClick={patchLike}>
@@ -150,92 +153,93 @@ const PostWidget = ({
           </FlexBetween>
         </FlexBetween>
 
-        <IconButton>
-          <Share/>
-        </IconButton>
+        <Share />
+
       </FlexBetween>
 
-
-
       {isComments && (
-        <Box sx={{ display: "flex", alignItems:'center',
-          justifyContent:'center',flexDirection: "column"}}>
-      <FlexBetween sx={{display:'flex',flexDirection:'column'}}>
-        <Box pt="0.5rem" pb="0.5rem" className="scroll" sx={{
-          maxHeight:'20rem',
-          overflowY:'scroll',
+        <Box sx={{
+          display: "flex", alignItems: 'center',
+          justifyContent: 'center', flexDirection: "column"
         }}>
-          {comments.map((val, i) => {
-            return (
-              <Box
-                key={`${i}`}
-                width={isNonMobile?"30vw":'70vw'}
-                style={{
-                  wordWrap: "break-word",
-                  display: "flex",
-                  flexDirection: "column"
+          <FlexBetween sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box pt="0.5rem" pb="0.5rem" className="scroll" sx={{
+              maxHeight: '20rem',
+              overflowY: 'scroll',
+            }}>
+              {comments.map((val, i) => {
+                return (
+                  <Box
+                    key={`${i}`}
+                    width={isNonMobile ? "30vw" : '70vw'}
+                    style={{
+                      wordWrap: "break-word",
+                      display: "flex",
+                      flexDirection: "column"
+                    }}
+                  >
+                    {(val.Id === loggedInUserId) ? <h2>{loggedInUserName}</h2> : ''}
+                    {val.comments.map((comment, index) => {
+                      return (
+                        <FlexBetween>
+                          <Divider />
+                          <span key={index}
+                            ref={myRef}
+                            id={`div-${index}`}
+                            style={{
+                              padding: '0.2rem 0.4rem',
+                              display: 'flex',
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              width: "100%",
+                              fontSize: 'large',
+                            }}>
+                            {comment}
+                            {(val.Id === loggedInUserId) ?
+                              <DeleteIcon
+                                onClick={removeComents}
+                                sx={{ height: "1.5rem", width: "1.5rem" }}
+                              /> : ''}
+                          </span>
+                          <Divider />
+                        </FlexBetween>
+                      );
+                    })}
+                    <Divider />
+                  </Box>
+                );
+              })}
+            </Box>
+            <Box
+              pt={"2rem"}
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              gap={"1rem"}
+              width={isNonMobile ? "32vw" : '70vw'}
+            >
+              <TextField
+                fullWidth
+                label="Add comment"
+                sx={{
+                  overflow: "hidden",
                 }}
-              >
-                {(val.Id===loggedInUserId)?<h2>{loggedInUserName}</h2>:''}
-                {val.comments.map((comment, index) => {
-                  return (
-                   <FlexBetween>
-                    <Divider/>
-                     <span key={index}
-                      ref={myRef}
-                     id={`div-${index}`}
-                     style={{
-                      padding:'0.2rem 0.4rem',
-                      display:'flex',
-                      flexDirection:'row',
-                      alignItems:'center',
-                      justifyContent:'space-between',
-                      width: "100%",
-                      fontSize:'large',
-                      }}>
-                     {comment}
-                     {(val.Id===loggedInUserId)?
-                     <DeleteIcon
-                       onClick={removeComents}
-                       sx={{ height: "1.5rem", width: "1.5rem" }}
-                     />:''}
-                    </span>
-                    <Divider/>
-                  </FlexBetween>
-                  );
-                })}
-            <Divider />
-              </Box>
-            );
-          })}
+                value={x}
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
+              />
+              <SendIcon
+                onClick={patchComment}
+                sx={{ height: "2rem", width: "2rem" }}
+              />
+            </Box>
+          </FlexBetween>
         </Box>
-         <Box
-         pt={"2rem"}
-         display={"flex"}
-         alignItems={"center"}
-         justifyContent={"center"}
-         gap={"1rem"}
-         width={isNonMobile?"32vw":'70vw'}
-       >
-         <TextField
-           fullWidth
-           label="Add comment"
-           sx={{ overflow: "hidden",
-           }}
-           value={x}
-           onChange={(e) => {
-             setComment(e.target.value);
-           }}
-         />
-         <SendIcon
-           onClick={patchComment}
-           sx={{ height: "2rem", width: "2rem" }}
-         />
-       </Box>
-       </FlexBetween>
-      </Box> 
-      
+
       )}
+
     </WidgetWrapper>
   );
 };

@@ -9,7 +9,7 @@ const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
-  const friends = useSelector((state) => state.user.friends);
+  const friends = useSelector((state) => state?.user?.friends) || [];
 
   const getFriends = async () => {
     fetch(
@@ -18,8 +18,7 @@ const FriendListWidget = ({ userId }) => {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       }
-    ).then((res) => res.json())
-      .then((data) => {
+    ).then((res) => res.json()).then((data) => {
         dispatch(setFriends({ friends: data }));
       })
       .catch((error) => {
@@ -42,7 +41,7 @@ const FriendListWidget = ({ userId }) => {
         Friend List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        {friends.map((friend) => (
+        {friends?.map((friend) => (
           <Friend
             key={friend._id}
             friendId={friend._id}

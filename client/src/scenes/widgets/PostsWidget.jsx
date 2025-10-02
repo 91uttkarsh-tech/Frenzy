@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
-import LoadingPage from 'components/loadingPagePost'
+import Skeleton from "@mui/material/Skeleton";
+import WidgetWrapper from "components/WidgetWrapper";
+import { Box, Typography } from "@mui/material";
+import { ArticleOutlined } from "@mui/icons-material";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
-  const [loading,setloading]= useState(true);
+  const [loading, setloading] = useState(true);
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
 
@@ -31,7 +34,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
     setloading(false);
-    };
+  };
 
   useEffect(() => {
     if (isProfile) {
@@ -41,13 +44,26 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     }
   }, []);
 
-  if(loading){
-    return <LoadingPage/>
+  if (loading) {
+    return (
+      <WidgetWrapper m="2rem 0" sx={{ py: 2 }}>
+        <Box >
+          <WidgetWrapper sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Skeleton variant="circular" width={48} height={48} />
+            <WidgetWrapper>
+              <Skeleton variant="text" width={200} height={30} />
+              <Skeleton variant="text" width={250} height={20} />
+            </WidgetWrapper>
+          </WidgetWrapper>
+          <Skeleton variant="rectangular" width="100%" height={150} sx={{ borderRadius: 1 }} />
+        </Box>
+      </WidgetWrapper>
+    );
   }
 
   return (
     <>
-      {posts.map(
+      {posts.length ? posts.map(
         ({
           _id,
           userId,
@@ -73,7 +89,19 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             comments={comments}
           />
         )
-      )}
+      ) :
+        <WidgetWrapper m="2rem 0" sx={{ textAlign: "center", py: 4 }}>
+          <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+            <ArticleOutlined sx={{ fontSize: 48, color: "text.disabled" }} />
+            <Typography variant="h6" color="text.secondary">
+              No posts available
+            </Typography>
+            <Typography variant="body2" color="text.disabled">
+              Be the first one to create a post!
+            </Typography>
+          </Box>
+        </WidgetWrapper>
+      }
     </>
   );
 };

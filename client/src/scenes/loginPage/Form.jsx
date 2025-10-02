@@ -128,16 +128,7 @@ const Form = () => {
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
       validationSchema={isLogin ? loginSchema : registerSchema}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        setFieldValue,
-        resetForm,
-      }) => (
+      {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue, resetForm }) => (
         <>
           {alert.message && <div style={{ marginBottom: "20px" }}><ActionAlert message={alert.message} type={alert.type} setAlert={setAlert} /></div>}
           <form onSubmit={handleSubmit}>
@@ -256,8 +247,6 @@ const Form = () => {
               </Box>
 
             </Box>
-
-            {/* BUTTONS */}
 
             <Box>
               <Button

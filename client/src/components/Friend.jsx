@@ -20,9 +20,9 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const medium = palette.neutral.medium;
 
   const isFriend = friends.find((friend) => friend._id === friendId);
+
   const patchFriend = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/users/${_id}/${friendId}`,
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
@@ -32,7 +32,9 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
       }
     );
     const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+    console.log(data);
+  
+    // dispatch(setFriends({ friends: data }));
   };
 
   return (

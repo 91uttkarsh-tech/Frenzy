@@ -14,6 +14,10 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    isDeleted: {
+      type: Boolean,
+      required: true,
+    },
     location: String,
     description: String,
     picturePath: String,

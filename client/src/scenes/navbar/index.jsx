@@ -59,7 +59,7 @@ const Navbar = () => {
           Faciogram
         </Typography>
         {isNonTabScreens && (
-          <FlexBetween>
+          <FlexBetween sx={{ cursor: "pointer" }}>
             <SearchBox name={Searching} />
           </FlexBetween>
         )}
@@ -67,7 +67,7 @@ const Navbar = () => {
 
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
-        <FlexBetween gap="2rem">
+        <FlexBetween gap="2rem" sx={{ cursor: "pointer" }}>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
