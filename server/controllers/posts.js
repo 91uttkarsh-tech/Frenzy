@@ -12,12 +12,13 @@ export const createPost = async (req, res) => {
       location: user.location,
       description,
       userPicturePath: user.picturePath,
+      isDeleted: req.body.isDeleted,
       picturePath,
       likes: {},
       comments: [],
     });
     await newPost.save();
-    const post = await Post.find();
+    const post = await Post.find({isDeleted:false});
     res.status(201).json(post);
   } catch (err) {
     res.status(409).json({ message: err.message });
@@ -27,7 +28,7 @@ export const createPost = async (req, res) => {
 /* READ */
 export const getFeedPosts = async (req, res) => {
   try {
-    const post = await Post.find({isDeleted:false});
+    const post = await Post.find({isDeleted:false});    
     res.status(200).json(post);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -73,7 +74,6 @@ export const commentPost = async (req, res) => {
   try {
     const { id } = req.params;
     const {userId,comment,key } = req.body;
-    console.log(req.body);
     const post = await Post.findById(id);
     const array = [comment];
     const finalArr = {Id:userId,comments:array};

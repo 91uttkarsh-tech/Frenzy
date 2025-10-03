@@ -19,8 +19,8 @@ const FriendListWidget = ({ userId }) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     ).then((res) => res.json()).then((data) => {
-        dispatch(setFriends({ friends: data }));
-      })
+      dispatch(setFriends({ friends: data }));
+    })
       .catch((error) => {
         console.error("Error fetching friends:", error);
       });
@@ -41,7 +41,7 @@ const FriendListWidget = ({ userId }) => {
         Friend List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        {friends?.map((friend) => (
+        {friends.length > 0 ? friends?.map((friend) => (
           <Friend
             key={friend._id}
             friendId={friend._id}
@@ -49,7 +49,10 @@ const FriendListWidget = ({ userId }) => {
             subtitle={friend.occupation}
             userPicturePath={friend.picturePath}
           />
-        ))}
+        )) : 
+        (<Typography color={palette.neutral.medium}>
+          You have no friends added.
+        </Typography>)}
       </Box>
     </WidgetWrapper>
   );

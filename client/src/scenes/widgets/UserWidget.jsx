@@ -75,7 +75,7 @@ const UserWidget = ({ userId, picturePath }) => {
         <Box >
           <Skeleton variant="text" width={150} height={50} />
           <WidgetWrapper sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
-           <Skeleton variant="text" width={180} height={20} />
+            <Skeleton variant="text" width={180} height={20} />
             <Skeleton variant="text" width={50} height={25} />
           </WidgetWrapper>
           <WidgetWrapper sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
@@ -108,19 +108,19 @@ const UserWidget = ({ userId, picturePath }) => {
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
-        onClick={() => navigate(`/profile/${userId}`)}
+        sx={{ cursor: "pointer" }}
       >
         <FlexBetween gap="1rem">
           <UserImage image={picturePath} />
           <Box>
             <Typography
+              onClick={() => navigate(`/profile/${userId}`)}
               variant="h4"
               color={dark}
               fontWeight="500"
               sx={{
                 "&:hover": {
-                  color: palette.primary.light,
-                  cursor: "pointer",
+                  color: palette.primary.main,
                 },
               }}
             >

@@ -41,6 +41,7 @@ const MyPostWidget = ({ picturePath }) => {
     const formData = new FormData();
     formData.append("userId", _id);
     formData.append("description", post);
+    formData.append("isDeleted", false);
     if (image) {
       formData.append("picture", image);
       formData.append("picturePath", image.name);
@@ -52,6 +53,7 @@ const MyPostWidget = ({ picturePath }) => {
       body: formData,
     });
     const posts = await response.json();
+    
     dispatch(setPosts({ posts }));
     setImage(null);
     setPost("");

@@ -30,13 +30,39 @@ export const getUserFriends = async (req, res) => {
   }
 };
 
+export const getNearbyFriends = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userLocation = user.location;
+
+    let nearby_users = await User.find({
+      _id: { $ne: id },
+      location: { $regex: userLocation, $options: "i" },
+    });
+
+    nearby_users = nearby_users.map(
+      ({ _id, firstName, lastName, occupation, location, picturePath }) => {
+        return { _id, firstName, lastName, occupation, location, picturePath };
+      }
+    );
+
+    res.status(200).json(nearby_users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
 /* UPDATE */
 export const addRemoveFriend = async (req, res) => {
   try {
     const { id, friendId } = req.params;
-
-    console.log(`User ID: ${id}, Friend ID: ${friendId}`);
-    
 
     if (id === friendId) {
       return res.status(400).json({ message: "You cannot add yourself as a friend" });
