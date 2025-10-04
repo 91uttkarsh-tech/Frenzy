@@ -47,7 +47,7 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
 app.post("/delete", verifyToken, deleteAccount);
-app.get("/search", Search);
+app.get("/search/users", Search);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);

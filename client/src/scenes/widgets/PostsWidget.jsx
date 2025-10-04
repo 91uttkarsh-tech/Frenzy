@@ -46,7 +46,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   if (loading) {
     return (
-      <WidgetWrapper m="2rem 0" sx={{ py: 2 }}>
+      <WidgetWrapper m={!isProfile ? "2rem 0" : "0"} sx={{ py: 2 }}>
         <Box >
           <WidgetWrapper sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Skeleton variant="circular" width={48} height={48} />
@@ -87,10 +87,11 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}
+            isProfile={isProfile}
           />
         )
       ) :
-        <WidgetWrapper m="2rem 0" sx={{ textAlign: "center", py: 4 }}>
+        <WidgetWrapper m={!isProfile ? "2rem 0" : "0"} sx={{ textAlign: "center", py: 4 }}>
           <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
             <ArticleOutlined sx={{ fontSize: 48, color: "text.disabled" }} />
             <Typography variant="h6" color="text.secondary">

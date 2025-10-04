@@ -32,6 +32,7 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
+  isProfile
 }) => {
   const myRef = useRef();
   const isNonMobile = useMediaQuery("(min-width:1000px)");
@@ -109,7 +110,7 @@ const PostWidget = ({
   };
 
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper m={!isProfile ? "2rem 0" : "0"}>
       <Friend
         friendId={postUserId}
         name={name}

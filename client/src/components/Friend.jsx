@@ -17,7 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 
-const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
+const Friend = ({ friendId, name, subtitle, userPicturePath,isProfile }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
@@ -86,7 +86,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
             <PersonAddOutlined sx={{ color: primaryDark }} />
           )}
         </IconButton>
-      ) : (
+      ) : (!isProfile &&
         <>
           <IconButton size="large" edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
             <MoreVertIcon sx={{ color: primaryDark, cursor: "pointer" }} />

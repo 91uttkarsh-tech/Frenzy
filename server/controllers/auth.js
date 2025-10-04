@@ -59,15 +59,25 @@ export const deleteAccount = async (req, res) => {
 //Searching user :-
 export const Search = async (req, res) => {
   try {
-    const users = await User.find();
-    console.log(users);
-    if(users){
-      res.status(200).json(users);
+    const { query } = req.query;
+
+    if (!query) {
+      return res.status(400).json({ error: "Query parameter is required" });
     }
+
+    const users = await User.find({
+      $or: [
+        { firstName: { $regex: query, $options: "i" } },
+        { lastName: { $regex: query, $options: "i" } },
+      ],
+    }).limit(10); 
+
+    res.status(200).json({users,status:true});
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ status:false,error: err.message });
   }
 };
+
 
 
 
