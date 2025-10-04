@@ -22,7 +22,7 @@ const LoginPage = () => {
         textAlign={"center"}
       >
         <Typography fontWeight="bolder" fontSize="40px" color={theme.palette.secondary.dark}>
-          Faciogram
+          Frenzy
         </Typography>
       <Box>
       <IconButton   onClick={() => dispatch(setMode())}>
@@ -43,7 +43,7 @@ const LoginPage = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight="500" fontSize={"1.5rem"} variant="h5" sx={{ mb: "1.5rem" }} textAlign="center">
-          Welcome to Faciogram!
+          Welcome to Frenzy!
         </Typography>
         <Form />
       </Box>

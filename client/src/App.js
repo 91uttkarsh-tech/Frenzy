@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
+import ShortsPage from "scenes/shortsPage";
 import 'App.css';
 
 function App() {
@@ -34,6 +35,11 @@ function App() {
             <Route
               path="/profile/:userId"
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+            />
+
+            <Route
+              path="/shorts"
+              element={isAuth ? <ShortsPage /> : <Navigate to="/" />}
             />
 
             <Route

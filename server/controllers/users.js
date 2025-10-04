@@ -47,8 +47,8 @@ export const getNearbyFriends = async (req, res) => {
     });
 
     nearby_users = nearby_users.map(
-      ({ _id, firstName, lastName, occupation, location, picturePath }) => {
-        return { _id, firstName, lastName, occupation, location, picturePath };
+      ({ _id, firstName, lastName, occupation, location, picturePath,friends }) => {
+        return { _id, firstName, lastName, occupation, location, picturePath,isFriend: friends.includes(id) };
       }
     );
 

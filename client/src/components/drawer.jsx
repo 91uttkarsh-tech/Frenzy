@@ -20,6 +20,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout, setPrivate, setMode } from "state";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
 
 export default function TemporaryDrawer(props) {
   const privacy = useSelector((state) => state.privacy);
@@ -29,6 +30,7 @@ export default function TemporaryDrawer(props) {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const dark = theme.palette.secondary.dark;
   const Dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleDrawer = (anchor, open) => () => {
     setState({ ...state, [anchor]: open });
@@ -164,7 +166,7 @@ export default function TemporaryDrawer(props) {
                 </ListItem>
 
                 <ListItem disablePadding>
-                  <ListItemButton onClick={() => Dispatch(setMode())}>
+                  <ListItemButton onClick={() => navigate("/shorts")}>
                     <ListItemIcon>
                       <PlayCircleOutlineRoundedIcon/>
                     </ListItemIcon>

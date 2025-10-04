@@ -1,22 +1,25 @@
 import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setFriends } from "state";
 
 
 const PeoplesWidget = ({ userId }) => {
   const { palette } = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const [people, setPeople] = useState([]);
   const primaryLight = palette.secondary.main;
   const primaryDark = palette.secondary.dark;
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
+  const friends = useSelector((state) => state.user.friends);
 
   const getNearbyPeople = async () => {
     try {
@@ -28,8 +31,6 @@ const PeoplesWidget = ({ userId }) => {
         }
       );
       const data = await response.json();
-      console.log(data);
-
       setPeople(data);
     } catch (error) {
       console.error("Error fetching nearby people:", error);
@@ -46,12 +47,13 @@ const PeoplesWidget = ({ userId }) => {
         }
       );
       const updated = await response.json();
-
       setPeople((prev) =>
         prev.map((p) =>
           p._id === friendId ? { ...p, isFriend: !p.isFriend } : p
         )
       );
+      dispatch(setFriends({ friends: updated }));
+
     } catch (error) {
       console.error("Error updating friend:", error);
     }
@@ -59,7 +61,7 @@ const PeoplesWidget = ({ userId }) => {
 
   useEffect(() => {
     getNearbyPeople();
-  }, []);
+  }, [friends]);
 
   return (
     <WidgetWrapper>

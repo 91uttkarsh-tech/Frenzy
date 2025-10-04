@@ -4,11 +4,12 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFriends } from "state";
+import { useState } from "react";
 
 const FriendListWidget = ({ userId }) => {
-  const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
+  const [friendsList, setFriendsList] = useState([]);
   const friends = useSelector((state) => state?.user?.friends) || [];
 
   const getFriends = async () => {
@@ -19,7 +20,7 @@ const FriendListWidget = ({ userId }) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     ).then((res) => res.json()).then((data) => {
-      dispatch(setFriends({ friends: data }));
+      setFriendsList(data);
     })
       .catch((error) => {
         console.error("Error fetching friends:", error);
@@ -28,7 +29,7 @@ const FriendListWidget = ({ userId }) => {
 
   useEffect(() => {
     getFriends();
-  }, []);
+  }, [friends]);
 
   return (
     <WidgetWrapper>
@@ -41,7 +42,7 @@ const FriendListWidget = ({ userId }) => {
         Friend List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        {friends.length > 0 ? friends?.map((friend) => (
+        {friendsList.length > 0 ? friendsList?.map((friend) => (
           <Friend
             key={friend._id}
             friendId={friend._id}
